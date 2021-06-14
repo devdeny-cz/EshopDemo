@@ -5,8 +5,10 @@ using System.Threading.Tasks;
 
 namespace EshopDemo.BLL.Repositories
 {
+
+    // todo k implementaci pro spojení s DB
     /// <summary>
-    /// Repository for DB context
+    /// Product repository for DB context
     /// </summary>
     public class ProductRepository : IRepository<Product>
     {

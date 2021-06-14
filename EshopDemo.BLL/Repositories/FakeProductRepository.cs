@@ -5,6 +5,10 @@ using System.Threading.Tasks;
 
 namespace EshopDemo.BLL.Repositories
 {
+
+    /// <summary>
+    /// Fake repository using FakeContext, getting mock objects
+    /// </summary>
     internal class FakeProductRepository : IRepository<Product>
     {
 
