@@ -24,7 +24,22 @@ succes result: 200
 bad result: bad request with error message or catch exception
 
 # Installion/Run
-* 
+## Demo
+1. Download solution codes
+1. Start developer command prompt for VS 2019
+1. use command dotnet `run --project [your folder]/EshopDemoService/EshopDemoService.`csproj
+1. get service url address from console and use: `[address]/swagger/index.html`
+1. choose function and try it
+
+## Test
+1. Download solution codes
+1. Start developer command prompt for VS 2019
+1. use command: `dotnet test "[your folder]\EshopDemo.sln"`
+1. you get test results
+
+
+
+
 
 # Technologies
 .ASP core WebApi
