@@ -24,6 +24,7 @@ succes result: 200
 bad result: bad request with error message or catch exception
 
 # Installion/Run
+
 ## Demo
 1. Download solution codes
 1. Start developer command prompt for VS 2019
@@ -36,9 +37,6 @@ bad result: bad request with error message or catch exception
 1. Start developer command prompt for VS 2019
 1. use command: `dotnet test "[your folder]\EshopDemo.sln"`
 1. you get test results
-
-
-
 
 
 # Technologies
