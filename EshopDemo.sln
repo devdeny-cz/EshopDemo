@@ -13,7 +13,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{D2744711
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EshopDemoService.Test", "Tests\EshopDemoService.Test\EshopDemoService.Test.csproj", "{7235E1F5-7C93-44EB-A55F-4B9807ACF895}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EshopDemoModel.Test", "EshopDemoModel.Test\EshopDemoModel.Test.csproj", "{69189E2D-0157-470B-8F81-80480F087D1B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EshopDemoModel.Test", "Tests\\EshopDemoModel.Test\EshopDemoModel.Test.csproj", "{69189E2D-0157-470B-8F81-80480F087D1B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
