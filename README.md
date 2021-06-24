@@ -43,13 +43,13 @@ bad result: bad request with error message or catch exception
 .ASP core WebApi
 
 ## Test
-Moq - for mocking virtual entities and dependency
-FluentAssertion - compare equivalent of object (test assertion)
+* Moq - for mocking virtual entities and dependency  
+* FluentAssertion - compare equivalent of object (test assertion)
 
 ## Design Pattern 
-MVC
-UnitOfWork
-Repository
+* MVC
+* UnitOfWork
+* Repository
 
 # Development information
 * I'm not sure with all asp configuration - I  don't have extensive experience with ASP. My experiences are like backend without ASP aplications. 
