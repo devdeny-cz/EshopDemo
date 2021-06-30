@@ -1,5 +1,6 @@
 # Introduction
-This is demo web application which can get all (fake) or one product and edit product description. 
+This is demo web application which can get all (fake) or one product and edit product description. It is easy demo - serving as interview task.  
+I haven't got extensive experience with ASP, so my main goal was show abstract design idea.  
 
 # Usage
 
@@ -9,19 +10,22 @@ Call rest api (any client or dev swaggerUI)
 https://[server address]api/ProductController?id=[productId]  
 Type: Get  
 success result: Product serialize to Json  
-bad result: bad request with error message if product or not exist or catch exception  
+bad result: bad request with error message - catch exception  
+not found: product not exist (404)
 
 ## Get all existing products
 https://[server address]/ProductController/getall
 Type: Get  
-success result: Products serialize to Json  
-bad result: bad request with error message if not exist any product or catch exception
+success result: Products serialize to Json  (200)
+bad result: bad request with error message (400)
+Not found: if not exist any product or catch exception (404)
 
 ## UpdateProductDescription
 https://[server address]/ProductController/update/[product id]&description=[new product description]  
 Type: Pul  
 succes result: 200
 bad result: bad request with error message or catch exception
+Not found:  product for update not exist (404)
 
 # Installion/Run
 
@@ -43,13 +47,13 @@ bad result: bad request with error message or catch exception
 .ASP core WebApi
 
 ## Test
-Moq - for mocking virtual entities and dependency
-FluentAssertion - compare equivalent of object (test assertion)
+* Moq - for mocking virtual entities and dependency  
+* FluentAssertion - compare equivalent of object (test assertion)
 
 ## Design Pattern 
-MVC
-UnitOfWork
-Repository
+* MVC
+* UnitOfWork
+* Repository
 
 # Development information
 * I'm not sure with all asp configuration - I  don't have extensive experience with ASP. My experiences are like backend without ASP aplications. 
