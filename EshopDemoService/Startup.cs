@@ -50,7 +50,12 @@ namespace WebApplication6
                 var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
                 c.IncludeXmlComments(xmlPath);
             });
-      
+            //services.AddApiVersioning(config =>
+            //{
+            //    config.DefaultApiVersion = new ApiVersion(1, 0);
+            //    config.ReportApiVersions = true;
+            //}
+            //);
             services.AddSingleton<IUnitOfWork>(new FakeUnitOfWork());
         }
 

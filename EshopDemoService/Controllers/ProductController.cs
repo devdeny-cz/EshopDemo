@@ -29,10 +29,10 @@ namespace EshopDemo.Controllers
         {
             try
             {
-                var product = _unitOfWork.ProductRepository.Get(id);
+                var product =  await _unitOfWork.ProductRepository.GetAsync(id);
                 if (product == null)
                 {
-                    return BadRequest($"Product {id} not found");
+                    return NotFound($"Product {id} not found");
                 }
 
                 return new JsonResult(product);
@@ -48,15 +48,16 @@ namespace EshopDemo.Controllers
         /// Return all existing products
         /// </summary>
         /// <returns>Collection products serialized to json</returns>
+
         [HttpGet("Getall")]
         public async Task<IActionResult> GetAll()
         {
             try
             {
-                var products = _unitOfWork.ProductRepository.GetAll();
+                var products = await _unitOfWork.ProductRepository.GetAllAsync();
                 if (products == null || !products.Any())
                 {
-                    return BadRequest($"Not exist any products");
+                    return NotFound($"Not exist any products");
                 }
 
                 return new JsonResult(products);
@@ -80,13 +81,13 @@ namespace EshopDemo.Controllers
         {
             try
             {
-                var product = _unitOfWork.ProductRepository.Get(id);
+                var product = await _unitOfWork.ProductRepository.GetAsync(id);
                 if (product == null)
                 {
-                    return BadRequest("Can't update not existing product");
+                    return NotFound("Can't update not existing product");
                 }
                 product.Description = description;
-                if (!_unitOfWork.ProductRepository.Update(product))
+                if (!await _unitOfWork.ProductRepository.UpdateAsync(product))
                 {
                     return BadRequest("Update product ended unhandled exception");
                 }

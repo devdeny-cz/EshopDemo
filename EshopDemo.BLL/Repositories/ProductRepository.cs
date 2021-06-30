@@ -18,7 +18,17 @@ namespace EshopDemo.BLL.Repositories
             throw new NotImplementedException();
         }
 
+        public Task<Product> AddAsync(Product entity)
+        {
+            throw new NotImplementedException();
+        }
+
         public bool Delete(Product entity)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<bool> DeleteAsync(Product entity)
         {
             throw new NotImplementedException();
         }
@@ -33,7 +43,22 @@ namespace EshopDemo.BLL.Repositories
             throw new NotImplementedException();
         }
 
+        public Task<IEnumerable<Product>> GetAllAsync()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<Product> GetAsync(int id)
+        {
+            throw new NotImplementedException();
+        }
+
         public bool Update(Product entity)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<bool> UpdateAsync(Product entity)
         {
             throw new NotImplementedException();
         }

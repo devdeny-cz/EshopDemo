@@ -25,7 +25,24 @@ namespace EshopDemo.BLL.Repositories
             return  Task.FromResult<Product>(entity);
         }
 
-        public bool Delete(Product entity)
+        public async Task<Product> AddAsync(Product entity)
+        {
+            _context.Products.Add(entity);
+            return entity;
+        }
+
+        public  bool Delete(Product entity)
+        {
+            if (_context.Products.Contains(entity))
+            {
+                _context.Products.Remove(entity);
+                return true;
+            }
+
+            return false;
+        }
+
+        public async Task<bool> DeleteAsync(Product entity)
         {
             if (_context.Products.Contains(entity))
             {
@@ -46,7 +63,23 @@ namespace EshopDemo.BLL.Repositories
             return _context.Products;
         }
 
+        public async Task<IEnumerable<Product>> GetAllAsync()
+        {
+            return _context.Products;
+        }
+
+        public async Task<Product> GetAsync(int id)
+        {
+            return _context.Products.FirstOrDefault(product => product.Id == id);
+        }
+
         public bool Update(Product entity)
+        {
+            // we have existing item, so for fake, just return true.. Maybe we can find by id and replace, because the entity can be another reference
+            return true;
+        }
+
+        public async Task<bool> UpdateAsync(Product entity)
         {
             // we have existing item, so for fake, just return true.. Maybe we can find by id and replace, because the entity can be another reference
             return true;

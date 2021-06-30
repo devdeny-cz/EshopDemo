@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace EshopDemoService.Test
 {
@@ -35,7 +36,7 @@ namespace EshopDemoService.Test
                 Name = "Book Clean Code"
             };
             var uowMoq = new Mock<IUnitOfWork>();
-            uowMoq.Setup(uow => uow.ProductRepository.Get(1)).Returns(fakeProduct);
+            uowMoq.Setup(uow => uow.ProductRepository.GetAsync(1)).Returns(Task.FromResult<Product>(fakeProduct));
             var productController = new ProductController(uowMoq.Object);
             var result = productController.Get(1);
             result.Result.Should().BeEquivalentTo(new JsonResult(fakeProduct));
@@ -53,10 +54,10 @@ namespace EshopDemoService.Test
                 Name = "Book Clean Code"
             };
             var uowMoq = new Mock<IUnitOfWork>();
-            uowMoq.Setup(uow => uow.ProductRepository.Get(1)).Returns(fakeProduct);
+            uowMoq.Setup(uow => uow.ProductRepository.GetAsync(1)).Returns(Task.FromResult<Product>(fakeProduct));
             var productController = new ProductController(uowMoq.Object);
             var result = productController.Get(2);
-            result.Result.Should().BeEquivalentTo(new BadRequestObjectResult("Product 2 not found"));
+            result.Result.Should().BeEquivalentTo(new NotFoundObjectResult("Product 2 not found"));
         }
 
         /// <summary>
@@ -71,7 +72,7 @@ namespace EshopDemoService.Test
                 Name = "Book Clean Code"
             };
             var uowMoq = new Mock<IUnitOfWork>();
-            uowMoq.Setup(uow => uow.ProductRepository.Get(1)).Throws(new System.Exception("Any exception"));
+            uowMoq.Setup(uow => uow.ProductRepository.GetAsync(1)).Throws(new System.Exception("Any exception"));
             var productController = new ProductController(uowMoq.Object);
             var result = productController.Get(1);
             result.Result.Should().BeEquivalentTo(new BadRequestObjectResult("Unhandled exception"));
@@ -98,7 +99,7 @@ namespace EshopDemoService.Test
             };
 
             var uowMoq = new Mock<IUnitOfWork>();
-            uowMoq.Setup(uow => uow.ProductRepository.GetAll()).Returns(fakeProducts);
+            uowMoq.Setup(uow => uow.ProductRepository.GetAllAsync()).Returns(Task.FromResult<IEnumerable<Product>>(fakeProducts));
             var productController = new ProductController(uowMoq.Object);
             var result = productController.GetAll();
             result.Result.Should().BeEquivalentTo(new JsonResult(fakeProducts));
@@ -111,10 +112,10 @@ namespace EshopDemoService.Test
         public void GetAll_NotExistAnyTest()
         {
             var uowMoq = new Mock<IUnitOfWork>();
-            uowMoq.Setup(uow => uow.ProductRepository.GetAll()).Returns(new List<Product>());
+            uowMoq.Setup(uow => uow.ProductRepository.GetAllAsync()).Returns(Task.FromResult<IEnumerable<Product>>(new List<Product>()));
             var productController = new ProductController(uowMoq.Object);
             var result = productController.GetAll();
-            result.Result.Should().BeEquivalentTo(new BadRequestObjectResult("Not exist any products"));
+            result.Result.Should().BeEquivalentTo(new NotFoundObjectResult("Not exist any products"));
         }
 
 
@@ -125,7 +126,7 @@ namespace EshopDemoService.Test
         public void GetAll_ExceptionTest()
         {
             var uowMoq = new Mock<IUnitOfWork>();
-            uowMoq.Setup(uow => uow.ProductRepository.GetAll()).Throws(new System.Exception("Any exception"));
+            uowMoq.Setup(uow => uow.ProductRepository.GetAllAsync()).Throws(new System.Exception("Any exception"));
             var productController = new ProductController(uowMoq.Object);
             var result = productController.GetAll();
             result.Result.Should().BeEquivalentTo(new BadRequestObjectResult("Unhandled exception"));
@@ -139,8 +140,8 @@ namespace EshopDemoService.Test
         public void UpdateProductTest()
         {
             var uowMoq = new Mock<IUnitOfWork>();
-            uowMoq.Setup(uow => uow.ProductRepository.Get(1)).Returns(new Product() { Id = 1, Description = "Old description" });
-            uowMoq.Setup(uow => uow.ProductRepository.Update(It.IsAny<Product>())).Returns(true);
+            uowMoq.Setup(uow => uow.ProductRepository.GetAsync(1)).Returns(Task.FromResult<Product>(new Product() { Id = 1, Description = "Old description" }));
+            uowMoq.Setup(uow => uow.ProductRepository.UpdateAsync(It.IsAny<Product>())).Returns(Task.FromResult<bool>(true));
             var productController = new ProductController(uowMoq.Object);
             var result = productController.Update(1, "new description");
             result.Result.Should().BeEquivalentTo(new OkResult());
@@ -150,18 +151,18 @@ namespace EshopDemoService.Test
         public void UpdateProduct_NotExistingProductTest()
         {
             var uowMoq = new Mock<IUnitOfWork>();
-            uowMoq.Setup(uow => uow.ProductRepository.Get(1)).Returns(new Product() { Id = 1, Description = "Old description" });
+            uowMoq.Setup(uow => uow.ProductRepository.GetAsync(1)).Returns(Task.FromResult<Product>(new Product() { Id = 1, Description = "Old description" }));
             var productController = new ProductController(uowMoq.Object);
             var result = productController.Update(2, "new description");
-            result.Result.Should().BeEquivalentTo(new BadRequestObjectResult("Can't update not existing product"));
+            result.Result.Should().BeEquivalentTo(new NotFoundObjectResult("Can't update not existing product"));
         }
 
         [TestMethod]
         public void UpdateProduct_InvalidUpdateTest()
         {
             var uowMoq = new Mock<IUnitOfWork>();
-            uowMoq.Setup(uow => uow.ProductRepository.Get(1)).Returns(new Product() { Id = 1, Description = "Old description" });
-            uowMoq.Setup(uow => uow.ProductRepository.Update(It.IsAny<Product>())).Returns(false);
+            uowMoq.Setup(uow => uow.ProductRepository.GetAsync(1)).Returns(Task.FromResult<Product>(new Product() { Id = 1, Description = "Old description" }));
+            uowMoq.Setup(uow => uow.ProductRepository.UpdateAsync(It.IsAny<Product>())).Returns(Task.FromResult<bool>(false));
             var productController = new ProductController(uowMoq.Object);
             var result = productController.Update(1, "new description");
             result.Result.Should().BeEquivalentTo(new BadRequestObjectResult("Update product ended unhandled exception"));
@@ -171,7 +172,7 @@ namespace EshopDemoService.Test
         public void UpdateProduct_UnhandledExceptionTest()
         {
             var uowMoq = new Mock<IUnitOfWork>();
-            uowMoq.Setup(uow => uow.ProductRepository.Get(1)).Throws(new System.Exception());
+            uowMoq.Setup(uow => uow.ProductRepository.GetAsync(1)).Throws(new System.Exception());
             var productController = new ProductController(uowMoq.Object);
             var result = productController.Update(1, "new description");
             result.Result.Should().BeEquivalentTo(new BadRequestObjectResult("Unhandled exception during update"));
